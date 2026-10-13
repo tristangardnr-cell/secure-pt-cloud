@@ -1,0 +1,22 @@
+# Terraform local files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+.terraform.lock.info
+*.tfplan
+crash.log
+crash.*.log
+
+# Secrets / credentials
+.env
+*.pem
+*.key
+*accessKeys*.csv
+*credentials*.csv
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

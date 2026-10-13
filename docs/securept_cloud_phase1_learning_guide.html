@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>SecurePT Cloud Phase 1 Learning Guide</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; line-height: 1.45; color: #1f2937; margin: 42px; }
+  h1 { color: #0f172a; border-bottom: 3px solid #2563eb; padding-bottom: 8px; }
+  h2 { color: #1d4ed8; margin-top: 28px; border-bottom: 1px solid #dbeafe; padding-bottom: 4px; }
+  h3 { color: #334155; margin-top: 18px; }
+  code, pre { background: #f1f5f9; border-radius: 4px; }
+  code { padding: 2px 5px; }
+  pre { padding: 12px; overflow-wrap: break-word; white-space: pre-wrap; }
+  .box { background: #eff6ff; border-left: 5px solid #2563eb; padding: 12px 14px; margin: 16px 0; }
+  .warn { background: #fff7ed; border-left: 5px solid #f97316; padding: 12px 14px; margin: 16px 0; }
+  ul { margin-top: 6px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+  th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; vertical-align: top; }
+  th { background: #e0f2fe; }
+  .small { font-size: 0.9em; color: #475569; }
+</style>
+</head>
+<body>
+<h1>SecurePT Cloud Security Lab — Phase 1 Learning Guide</h1>
+<p class="small"><strong>Project:</strong> SecurePT Cloud Security Lab<br>
+<strong>Purpose:</strong> Build a HIPAA-aligned AWS security portfolio project for jobs, future Savvy Security Solutions offerings, and healthcare/PT practice security planning.</p>
+
+<div class="box">
+<strong>Core idea:</strong> We are building a virtual healthcare network in AWS using Terraform. The goal is not just to click things until they work. The goal is to prove you understand cloud networking, security segmentation, infrastructure as code, and healthcare risk reduction.
+</div>
+
+<h2>1. Current Status</h2>
+<ul>
+  <li>Project folder created: <code>/home/savib/portfolio/secure-pt-cloud</code></li>
+  <li>Git repository initialized.</li>
+  <li>Initial project skeleton committed.</li>
+  <li>AWS CLI installed and configured.</li>
+  <li>AWS identity test succeeded with <code>aws sts get-caller-identity</code>.</li>
+  <li>Starter Terraform files created in <code>terraform/</code>.</li>
+</ul>
+
+<h2>2. Tools Being Used and Why</h2>
+<table>
+<tr><th>Tool</th><th>What It Does</th><th>Skill Being Built</th></tr>
+<tr><td>Ubuntu / WSL</td><td>Linux command center running inside Windows.</td><td>Linux CLI, professional admin workflow, cloud engineering habits.</td></tr>
+<tr><td>VS Code</td><td>Code/documentation editor connected to WSL.</td><td>Project editing, repo navigation, documentation discipline.</td></tr>
+<tr><td>Git</td><td>Tracks project history and milestones.</td><td>Version control, portfolio credibility, GitHub readiness.</td></tr>
+<tr><td>AWS CLI</td><td>Lets Linux terminal talk to AWS.</td><td>Cloud administration, identity/configuration, automation readiness.</td></tr>
+<tr><td>Terraform</td><td>Builds AWS infrastructure from code.</td><td>Infrastructure as Code, repeatable cloud builds, DevOps/cloud security.</td></tr>
+<tr><td>AWS</td><td>Cloud provider where the virtual network is built.</td><td>VPC design, cloud networking, IAM, security groups, encryption, logging.</td></tr>
+</table>
+
+<h2>3. Project Architecture in Plain English</h2>
+<p>We are creating a virtual version of a secure small healthcare environment.</p>
+<table>
+<tr><th>AWS Component</th><th>Plain-English Analogy</th><th>Security Purpose</th></tr>
+<tr><td>VPC</td><td>The medical office property/building boundary.</td><td>Creates a private network under our control.</td></tr>
+<tr><td>Public subnet</td><td>The front lobby.</td><td>Where internet-facing systems could live.</td></tr>
+<tr><td>Private subnet</td><td>The locked medical records room.</td><td>Where sensitive backend systems should live.</td></tr>
+<tr><td>Internet Gateway</td><td>The front door to the internet.</td><td>Allows internet access for public resources.</td></tr>
+<tr><td>Route table</td><td>Traffic directions/map.</td><td>Controls where network traffic can go.</td></tr>
+<tr><td>Security group</td><td>Cloud firewall.</td><td>Allows only approved ports/sources.</td></tr>
+<tr><td>KMS/encryption later</td><td>Locked filing cabinet keys.</td><td>Protects stored data.</td></tr>
+<tr><td>Logging/monitoring later</td><td>Security cameras and audit trail.</td><td>Helps detect and investigate activity.</td></tr>
+</table>
+
+<h2>4. Networking Concepts to Understand</h2>
+<h3>VPC CIDR</h3>
+<p>The VPC uses:</p>
+<pre>10.20.0.0/16</pre>
+<p>This is the large private network range for the whole lab.</p>
+
+<h3>Public Subnet</h3>
+<pre>10.20.1.0/24</pre>
+<p>Traditional subnet thinking:</p>
+<ul>
+  <li><code>10.20.1.0</code> = network address</li>
+  <li><code>10.20.1.255</code> = broadcast address</li>
+</ul>
+<p>AWS reserves 5 IPs in every subnet:</p>
+<ul>
+  <li>first address: network address</li>
+  <li>second address: VPC router</li>
+  <li>third address: AWS DNS</li>
+  <li>fourth address: reserved by AWS</li>
+  <li>last address: broadcast address, even though AWS does not use broadcast like a traditional LAN</li>
+</ul>
+
+<h3>Private Subnet</h3>
+<pre>10.20.10.0/24</pre>
+<p>This will hold protected backend systems. It does not currently have direct internet routing.</p>
+
+<h3>Default Route</h3>
+<pre>0.0.0.0/0 → Internet Gateway</pre>
+<p><code>0.0.0.0/0</code> is not a host subnet. It means “all IPv4 destinations.” In a route table, this is the default route to the internet.</p>
+
+<h2>5. Why Public and Private Segmentation Matters</h2>
+<p>Healthcare systems should not expose sensitive backend systems directly to the internet.</p>
+<p>The secure pattern is:</p>
+<pre>Internet → Public Web Layer → Private Backend Layer</pre>
+<p>Not:</p>
+<pre>Internet → Patient Database</pre>
+<p>This shows the principle of least privilege and reduced attack surface.</p>
+
+<h2>6. Commands Already Used</h2>
+<h3>Create project folder</h3>
+<pre>mkdir -p ~/portfolio/secure-pt-cloud
+cd ~/portfolio/secure-pt-cloud</pre>
+<p><strong>Why:</strong> Creates a clean Linux project folder outside random Downloads/Desktop clutter.</p>
+
+<h3>Create folder structure</h3>
+<pre>mkdir terraform docs diagrams screenshots scripts
+touch README.md</pre>
+<p><strong>Why:</strong> Creates a professional repo layout from the beginning.</p>
+
+<h3>Initialize Git</h3>
+<pre>git init
+git add .
+git commit -m "Initial SecurePT Cloud project skeleton"</pre>
+<p><strong>Why:</strong> Saves the starting milestone and creates project history.</p>
+
+<h3>Configure AWS CLI</h3>
+<pre>aws configure</pre>
+<p>Inputs used:</p>
+<ul>
+  <li>Access Key ID from AWS IAM user</li>
+  <li>Secret Access Key from AWS IAM user</li>
+  <li>Region: <code>us-east-1</code></li>
+  <li>Output: <code>json</code></li>
+</ul>
+
+<h3>Fix AWS config values</h3>
+<pre>aws configure set region us-east-1
+aws configure set output json</pre>
+<p><strong>Why:</strong> Region/output were accidentally set to <code>none</code>, which caused AWS endpoint/output errors.</p>
+
+<h3>Confirm AWS identity</h3>
+<pre>aws sts get-caller-identity</pre>
+<p><strong>Why:</strong> Proves WSL can authenticate to AWS.</p>
+
+<h2>7. Terraform Files Created</h2>
+<table>
+<tr><th>File</th><th>Purpose</th></tr>
+<tr><td><code>versions.tf</code></td><td>Defines required Terraform version and AWS provider plugin.</td></tr>
+<tr><td><code>variables.tf</code></td><td>Stores configurable values like region, project name, VPC CIDR, and subnet CIDRs.</td></tr>
+<tr><td><code>main.tf</code></td><td>Defines the AWS architecture: VPC, subnets, route tables, internet gateway, security groups.</td></tr>
+<tr><td><code>outputs.tf</code></td><td>Displays important IDs after resources are created.</td></tr>
+</table>
+
+<h2>8. Next Commands and What They Mean</h2>
+<h3>Step 1 — Move into Terraform folder</h3>
+<pre>cd /home/savib/portfolio/secure-pt-cloud/terraform</pre>
+<p><strong>Meaning:</strong> Go where the Terraform files live.</p>
+
+<h3>Step 2 — Format code</h3>
+<pre>terraform fmt</pre>
+<p><strong>Meaning:</strong> Clean up Terraform formatting. Does not create AWS resources.</p>
+
+<h3>Step 3 — Initialize Terraform</h3>
+<pre>terraform init</pre>
+<p><strong>Meaning:</strong> Download the AWS provider plugin and prepare the folder. Does not create AWS resources.</p>
+
+<h3>Step 4 — Validate Terraform</h3>
+<pre>terraform validate</pre>
+<p><strong>Meaning:</strong> Check whether the code is syntactically valid. Does not create AWS resources.</p>
+
+<h3>Step 5 — Review the plan</h3>
+<pre>terraform plan</pre>
+<p><strong>Meaning:</strong> Preview what Terraform wants to build. This is the safety/review step.</p>
+
+<h3>Step 6 — Apply only after review</h3>
+<pre>terraform apply</pre>
+<p><strong>Meaning:</strong> Actually create the AWS resources. We only run this after reviewing the plan.</p>
+
+<div class="warn">
+<strong>Cost warning:</strong> Phase 1 network resources are generally low/no cost, but later resources can cost money. Avoid NAT Gateway in the MVP unless intentionally added because it can create ongoing charges.
+</div>
+
+<h2>9. Skills This Project Is Building</h2>
+<ul>
+  <li><strong>Cloud networking:</strong> VPCs, subnets, routing, internet gateways, private/public segmentation.</li>
+  <li><strong>Security engineering:</strong> least privilege, attack surface reduction, firewall/security group design.</li>
+  <li><strong>Infrastructure as Code:</strong> Terraform files replace manual clicking.</li>
+  <li><strong>Linux operations:</strong> using WSL as a professional command center.</li>
+  <li><strong>Version control:</strong> Git commits document progress.</li>
+  <li><strong>Healthcare security:</strong> HIPAA-aligned thinking around PHI/ePHI systems.</li>
+  <li><strong>Documentation:</strong> creating artifacts that employers and clients can understand.</li>
+  <li><strong>Business positioning:</strong> turning technical work into Savvy Security Solutions credibility.</li>
+</ul>
+
+<h2>10. Interview Explanation</h2>
+<div class="box">
+“I built a healthcare-focused AWS security lab using Terraform. The design uses a segmented VPC with public and private subnets. Public-facing systems would live in the public subnet, while sensitive backend systems are isolated in the private subnet. Route tables and security groups enforce least privilege. The project is HIPAA-aligned as a portfolio lab, showing how I think about protecting healthcare workflows and reducing exposure of systems that may handle PHI.”
+</div>
+
+<h2>11. Business Explanation</h2>
+<div class="box">
+“SecurePT Cloud is a technical blueprint for the kind of secure healthcare infrastructure Savvy Security Solutions could help small practices understand, assess, and eventually implement. It demonstrates the ability to combine cloud architecture, security controls, documentation, and healthcare risk awareness.”
+</div>
+
+<h2>12. What to Remember</h2>
+<ul>
+  <li>AWS Console is for account setup, billing, IAM, MFA, and visual verification.</li>
+  <li>Linux CLI is the control station.</li>
+  <li>Terraform is the repeatable blueprint.</li>
+  <li>Git is the project memory/version history.</li>
+  <li>The VPC is the private cloud network.</li>
+  <li>The public subnet is the front lobby.</li>
+  <li>The private subnet is the locked records room.</li>
+  <li>Security groups are firewalls.</li>
+  <li>Route tables tell traffic where it can go.</li>
+  <li>Do not expose backend/patient-data systems directly to the internet.</li>
+</ul>
+
+</body>
+</html>

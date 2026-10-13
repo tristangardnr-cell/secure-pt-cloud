@@ -1,0 +1,207 @@
+SecurePT Cloud Security Lab — Phase 1 Learning Guide
+
+Project: SecurePT Cloud Security Lab
+Purpose: Build a HIPAA-aligned AWS security portfolio project for jobs, future Savvy Security Solutions offerings, and healthcare/PT practice security planning.
+
+CORE IDEA
+We are building a virtual healthcare network in AWS using Terraform. The goal is not just to click things until they work. The goal is to prove you understand cloud networking, security segmentation, infrastructure as code, and healthcare risk reduction.
+
+1. CURRENT STATUS
+- Project folder created: /home/savib/portfolio/secure-pt-cloud
+- Git repository initialized.
+- Initial project skeleton committed.
+- AWS CLI installed and configured.
+- AWS identity test succeeded with: aws sts get-caller-identity
+- Starter Terraform files created in terraform/.
+
+2. TOOLS BEING USED AND WHY
+Ubuntu / WSL
+- What it does: Linux command center running inside Windows.
+- Skill built: Linux CLI, professional admin workflow, cloud engineering habits.
+
+VS Code
+- What it does: Code/documentation editor connected to WSL.
+- Skill built: Project editing, repo navigation, documentation discipline.
+
+Git
+- What it does: Tracks project history and milestones.
+- Skill built: Version control, portfolio credibility, GitHub readiness.
+
+AWS CLI
+- What it does: Lets Linux terminal talk to AWS.
+- Skill built: Cloud administration, identity/configuration, automation readiness.
+
+Terraform
+- What it does: Builds AWS infrastructure from code.
+- Skill built: Infrastructure as Code, repeatable cloud builds, DevOps/cloud security.
+
+AWS
+- What it does: Cloud provider where the virtual network is built.
+- Skill built: VPC design, cloud networking, IAM, security groups, encryption, logging.
+
+3. PROJECT ARCHITECTURE IN PLAIN ENGLISH
+We are creating a virtual version of a secure small healthcare environment.
+
+VPC = the medical office property/building boundary.
+Security purpose: creates a private network under our control.
+
+Public subnet = the front lobby.
+Security purpose: where internet-facing systems could live.
+
+Private subnet = the locked medical records room.
+Security purpose: where sensitive backend systems should live.
+
+Internet Gateway = the front door to the internet.
+Security purpose: allows internet access for public resources.
+
+Route table = traffic directions/map.
+Security purpose: controls where network traffic can go.
+
+Security group = cloud firewall.
+Security purpose: allows only approved ports/sources.
+
+KMS/encryption later = locked filing cabinet keys.
+Security purpose: protects stored data.
+
+Logging/monitoring later = security cameras and audit trail.
+Security purpose: helps detect and investigate activity.
+
+4. NETWORKING CONCEPTS TO UNDERSTAND
+VPC CIDR:
+10.20.0.0/16
+This is the large private network range for the whole lab.
+
+Public subnet:
+10.20.1.0/24
+Traditional subnet thinking:
+- 10.20.1.0 = network address
+- 10.20.1.255 = broadcast address
+
+AWS reserves 5 IPs in every subnet:
+- first address: network address
+- second address: VPC router
+- third address: AWS DNS
+- fourth address: reserved by AWS
+- last address: broadcast address, even though AWS does not use broadcast like a traditional LAN
+
+Private subnet:
+10.20.10.0/24
+This will hold protected backend systems. It does not currently have direct internet routing.
+
+Default route:
+0.0.0.0/0 -> Internet Gateway
+0.0.0.0/0 is not a host subnet. It means “all IPv4 destinations.” In a route table, this is the default route to the internet.
+
+5. WHY PUBLIC AND PRIVATE SEGMENTATION MATTERS
+Healthcare systems should not expose sensitive backend systems directly to the internet.
+
+The secure pattern is:
+Internet -> Public Web Layer -> Private Backend Layer
+
+Not:
+Internet -> Patient Database
+
+This shows least privilege and reduced attack surface.
+
+6. COMMANDS ALREADY USED
+Create project folder:
+mkdir -p ~/portfolio/secure-pt-cloud
+cd ~/portfolio/secure-pt-cloud
+Why: Creates a clean Linux project folder outside random Downloads/Desktop clutter.
+
+Create folder structure:
+mkdir terraform docs diagrams screenshots scripts
+touch README.md
+Why: Creates a professional repo layout from the beginning.
+
+Initialize Git:
+git init
+git add .
+git commit -m "Initial SecurePT Cloud project skeleton"
+Why: Saves the starting milestone and creates project history.
+
+Configure AWS CLI:
+aws configure
+Inputs used:
+- Access Key ID from AWS IAM user
+- Secret Access Key from AWS IAM user
+- Region: us-east-1
+- Output: json
+
+Fix AWS config values:
+aws configure set region us-east-1
+aws configure set output json
+Why: Region/output were accidentally set to none, which caused AWS endpoint/output errors.
+
+Confirm AWS identity:
+aws sts get-caller-identity
+Why: Proves WSL can authenticate to AWS.
+
+7. TERRAFORM FILES CREATED
+versions.tf
+Purpose: Defines required Terraform version and AWS provider plugin.
+
+variables.tf
+Purpose: Stores configurable values like region, project name, VPC CIDR, and subnet CIDRs.
+
+main.tf
+Purpose: Defines the AWS architecture: VPC, subnets, route tables, internet gateway, security groups.
+
+outputs.tf
+Purpose: Displays important IDs after resources are created.
+
+8. NEXT COMMANDS AND WHAT THEY MEAN
+Step 1 — Move into Terraform folder:
+cd /home/savib/portfolio/secure-pt-cloud/terraform
+Meaning: Go where the Terraform files live.
+
+Step 2 — Format code:
+terraform fmt
+Meaning: Clean up Terraform formatting. Does not create AWS resources.
+
+Step 3 — Initialize Terraform:
+terraform init
+Meaning: Download the AWS provider plugin and prepare the folder. Does not create AWS resources.
+
+Step 4 — Validate Terraform:
+terraform validate
+Meaning: Check whether the code is syntactically valid. Does not create AWS resources.
+
+Step 5 — Review the plan:
+terraform plan
+Meaning: Preview what Terraform wants to build. This is the safety/review step.
+
+Step 6 — Apply only after review:
+terraform apply
+Meaning: Actually create the AWS resources. We only run this after reviewing the plan.
+
+COST WARNING
+Phase 1 network resources are generally low/no cost, but later resources can cost money. Avoid NAT Gateway in the MVP unless intentionally added because it can create ongoing charges.
+
+9. SKILLS THIS PROJECT IS BUILDING
+- Cloud networking: VPCs, subnets, routing, internet gateways, private/public segmentation.
+- Security engineering: least privilege, attack surface reduction, firewall/security group design.
+- Infrastructure as Code: Terraform files replace manual clicking.
+- Linux operations: using WSL as a professional command center.
+- Version control: Git commits document progress.
+- Healthcare security: HIPAA-aligned thinking around PHI/ePHI systems.
+- Documentation: creating artifacts that employers and clients can understand.
+- Business positioning: turning technical work into Savvy Security Solutions credibility.
+
+10. INTERVIEW EXPLANATION
+“I built a healthcare-focused AWS security lab using Terraform. The design uses a segmented VPC with public and private subnets. Public-facing systems would live in the public subnet, while sensitive backend systems are isolated in the private subnet. Route tables and security groups enforce least privilege. The project is HIPAA-aligned as a portfolio lab, showing how I think about protecting healthcare workflows and reducing exposure of systems that may handle PHI.”
+
+11. BUSINESS EXPLANATION
+“SecurePT Cloud is a technical blueprint for the kind of secure healthcare infrastructure Savvy Security Solutions could help small practices understand, assess, and eventually implement. It demonstrates the ability to combine cloud architecture, security controls, documentation, and healthcare risk awareness.”
+
+12. WHAT TO REMEMBER
+- AWS Console is for account setup, billing, IAM, MFA, and visual verification.
+- Linux CLI is the control station.
+- Terraform is the repeatable blueprint.
+- Git is the project memory/version history.
+- The VPC is the private cloud network.
+- The public subnet is the front lobby.
+- The private subnet is the locked records room.
+- Security groups are firewalls.
+- Route tables tell traffic where it can go.
+- Do not expose backend/patient-data systems directly to the internet.
