@@ -22,3 +22,8 @@ output "private_backend_security_group_id" {
   description = "ID of the private backend security group."
   value       = aws_security_group.private_backend.id
 }
+
+output "private_backend_instance_id" {
+  description = "ID of the private backend EC2 instance."
+  value       = aws_instance.private_backend.id
+}
