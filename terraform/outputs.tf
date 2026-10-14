@@ -27,3 +27,13 @@ output "private_backend_instance_id" {
   description = "ID of the private backend EC2 instance."
   value       = aws_instance.private_backend.id
 }
+
+output "cloudtrail_name" {
+  description = "Name of the CloudTrail trail."
+  value       = aws_cloudtrail.main.name
+}
+
+output "cloudtrail_s3_bucket" {
+  description = "S3 bucket storing CloudTrail audit logs."
+  value       = aws_s3_bucket.cloudtrail_logs.id
+}
