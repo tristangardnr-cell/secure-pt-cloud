@@ -4,7 +4,7 @@ A healthcare-focused AWS infrastructure security portfolio lab built with Terraf
 
 ## Project status
 
-Phases 1-6 are complete for the recovered portfolio MVP scope. Documentation was synchronized to the original WSL repository on October 15, 2026. On October 16, the documentation was committed in the Windows Git copy with the original deployment history preserved, and the public GitHub repository was created. Phase 7 publication remains pending the first successful push and remote verification. The original WSL checkout remains the deployment working copy. The backend is a demonstration EC2 instance; a clinical application, database service, and patient authentication are not installed by this Terraform.
+Phases 1-6 are complete for the recovered portfolio MVP scope. Documentation was synchronized to the original WSL repository on October 15, 2026. On October 16, the documentation was committed in the Windows Git copy with the original deployment history preserved, and the public GitHub repository was created. Phase 7 publication was verified on October 16, 2026. All seven phases of the recovered portfolio MVP are complete. The original WSL checkout remains the deployment working copy. The backend is a demonstration EC2 instance; a clinical application, database service, and patient authentication are not installed by this Terraform.
 
 ## Architecture
 
@@ -26,7 +26,7 @@ The /16 is a generous parent address pool for subnet expansion; it is not the si
 | 4 | VPC Flow Logs and CloudWatch destination | [Flow Logs summary](docs/phase4_vpc_flow_logs_summary.md) |
 | 5 | Architecture artwork and 14 actual console screenshots | [Evidence package](docs/phase5_evidence_summary.md) |
 | 6 | Referenced safeguards mapping and README polish | [Documentation summary](docs/phase6_documentation_summary.md) |
-| 7 | Publication review, GitHub and job packaging | Pending |
+| 7 | Publication review, GitHub and job packaging | [Publication verification](docs/phase7_status.md) |
 
 The explicit seven-phase handoff was recovered from the original OpenClaw conversations. See [roadmap provenance](docs/recovered_roadmap.md). Earlier plans included broader future work; an application demo and automated response are extensions to this MVP.
 
