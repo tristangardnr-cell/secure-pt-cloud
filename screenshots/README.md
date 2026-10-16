@@ -1,6 +1,6 @@
 # Phase 5 - AWS screenshot evidence
 
-Captured October 15, 2026 from the signed-in AWS Console in us-east-1. Only read-only navigation was performed; no resources or security settings were changed. Images are actual console captures. The navigation header was cropped at capture time; resource/account identifiers remain in some panels and need publication review in Phase 7.
+Captured October 15, 2026 from the signed-in AWS Console in us-east-1. Only read-only navigation was performed; no resources or security settings were changed. Images are actual console captures. The navigation header was cropped at capture time; resource/account identifiers remain in some panels. These were reviewed for the owner-authorized public release in Phase 7; they are identifiers, not access credentials.
 
 The narrow browser viewport required multiple screenshots for wide maps and tables. Read the paired inbound-port/source screenshots together. Screenshots are observations of configuration, not proof of end-to-end connectivity.
 
