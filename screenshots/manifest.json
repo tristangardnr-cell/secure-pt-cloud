@@ -1,0 +1,90 @@
+{
+  "captureDate": "2026-10-15",
+  "region": "us-east-1",
+  "screenshots": [
+    {
+      "file": "01-vpc-map-subnets.jpg",
+      "bytes": 43731,
+      "sha256": "1ff10c2c0a1c18632e7164045da630c7eb17374f4a7452ae69161a74f342d2fd",
+      "caption": "VPC and public/private subnets"
+    },
+    {
+      "file": "02-vpc-map-route-associations.jpg",
+      "bytes": 42048,
+      "sha256": "5b7bf53c934066c20424e209a0c161be7e1a5f3c869a49b512910aadf319cae9",
+      "caption": "Explicit subnet-to-route-table associations"
+    },
+    {
+      "file": "03-vpc-map-internet-gateway.jpg",
+      "bytes": 42219,
+      "sha256": "84acbcbca422534513cac4fe153c2dda62466a93701a8a6b0457c83e0f4a865b",
+      "caption": "Public route table connected to internet gateway"
+    },
+    {
+      "file": "04-private-routes.jpg",
+      "bytes": 43807,
+      "sha256": "f38a1e5033d4d1dffa80780e0fcab211c85e5abbde8a6fcae0df31dc76c49c53",
+      "caption": "Private route table: local route only"
+    },
+    {
+      "file": "05-public-routes.jpg",
+      "bytes": 41107,
+      "sha256": "12e12d7c72be90e7780007130cd2d43de939035c4658bd3a23fd21dd0e40e7b0",
+      "caption": "Public route table: default route to internet gateway"
+    },
+    {
+      "file": "06-private-backend-summary.jpg",
+      "bytes": 46762,
+      "sha256": "f3c586b60f361d7c3da4075db46e630cc2b935783e4e9a986d55c8b44d35d1c5",
+      "caption": "Backend running with a private IP and no public IP"
+    },
+    {
+      "file": "07-backend-subnet-imdsv2.jpg",
+      "bytes": 35934,
+      "sha256": "60b1b28170c637c020035dd709aabc14d16e2c301244c66ff29bd25e54bb6de7",
+      "caption": "Backend private-subnet placement and IMDSv2 Required"
+    },
+    {
+      "file": "08-backend-inbound-ports.jpg",
+      "bytes": 25409,
+      "sha256": "9e10eee5b9c70a8e3ce15fa2c37519ab840e0c8d3c94542a5fbedae0b8ed634b",
+      "caption": "Backend inbound ports: TCP 5432 and 443"
+    },
+    {
+      "file": "09-backend-inbound-sources.jpg",
+      "bytes": 34360,
+      "sha256": "a695197c2da9ae0d374bebd1ddf0ace287d084862732fa53bbf17873d3c8a933",
+      "caption": "Both inbound rules reference the web-tier security group"
+    },
+    {
+      "file": "10-ebs-encryption.jpg",
+      "bytes": 42582,
+      "sha256": "03aaeae573f40a64b3ae6bf3546dfd6826bccc055026125c6998dd743305bf70",
+      "caption": "EBS encryption enabled with aws/ebs key alias"
+    },
+    {
+      "file": "11-vpc-flow-log.jpg",
+      "bytes": 47894,
+      "sha256": "b9a48ae6b77354ddea1f117cb3a38d806e7b5262aa38b30c53b8871c2d07545f",
+      "caption": "VPC Flow Log active, ALL traffic type, CloudWatch destination"
+    },
+    {
+      "file": "12-cloudtrail-logging.jpg",
+      "bytes": 44336,
+      "sha256": "ff9b1f72a567158cd5a574e003697df03ff1d0aeb891dcbcbf6d7bec303af2f6",
+      "caption": "CloudTrail Logging status and latest delivery time"
+    },
+    {
+      "file": "13-cloudwatch-retention.jpg",
+      "bytes": 36278,
+      "sha256": "dcfbe7c1937b47363bf2086e82dd4fc0c37fbaa0ad66ddf2c52fc02e2a8ceb28",
+      "caption": "Flow Logs group retention: one week; stored data present"
+    },
+    {
+      "file": "14-flow-log-delivered-record.jpg",
+      "bytes": 52450,
+      "sha256": "bb82576fc6544676d19afe671d6ef3f280dc4d9309e290d3116beb81ceb7fa60",
+      "caption": "Delivered Flow Logs record with NODATA status"
+    }
+  ]
+}

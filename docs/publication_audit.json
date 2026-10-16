@@ -1,0 +1,131 @@
+{
+  "date": "2026-10-15",
+  "history_blob_count": 22,
+  "current_text_file_count": 29,
+  "patterns_checked": [
+    "aws_access_key_id",
+    "private_key",
+    "github_token",
+    "openai_token",
+    "aws_secret_literal"
+  ],
+  "findings": [],
+  "history_objects": [
+    {
+      "object": "0406194f6d313563d94d4f95b3caa850aaab9886",
+      "path": ".gitignore",
+      "bytes": 262
+    },
+    {
+      "object": "3aef144e898a6238e449a655fbf3d8c5f8efbabb",
+      "path": "README.md",
+      "bytes": 3410
+    },
+    {
+      "object": "eb50022d4f0f43652b2b51d10e776352002a4961",
+      "path": "docs/milestones.md",
+      "bytes": 1674
+    },
+    {
+      "object": "8a64c3d9a18dc043096e9595bde242218ae75fa4",
+      "path": "docs/phase1_deployment_summary.md",
+      "bytes": 2523
+    },
+    {
+      "object": "8199937de52547f9bb8d538484575efcac4466da",
+      "path": "docs/phase2_private_backend_summary.md",
+      "bytes": 3146
+    },
+    {
+      "object": "dcdb3e36d679a869e48b2a98d976401c2bc451aa",
+      "path": "docs/phase3_audit_logging_summary.md",
+      "bytes": 2120
+    },
+    {
+      "object": "dc49ac02b7e09f34287625ffda92aa09be2e09e5",
+      "path": "docs/phase4_vpc_flow_logs_summary.md",
+      "bytes": 2211
+    },
+    {
+      "object": "0868e0f3e98299312baadfeb0966880ecab48b73",
+      "path": "docs/securept_cloud_phase1_learning_guide.html",
+      "bytes": 11383
+    },
+    {
+      "object": "1f435e867b07a9d48c2fcf6b293a59bb4d05cebb",
+      "path": "docs/securept_cloud_phase1_learning_guide.txt",
+      "bytes": 8146
+    },
+    {
+      "object": "23871f63e051f4b5b0e97936bb5aa20ee522b403",
+      "path": "terraform/.terraform.lock.hcl",
+      "bytes": 2603
+    },
+    {
+      "object": "22a1fbbe73c2957b677b5ff3f100c748a5b68f5c",
+      "path": "terraform/cloudtrail.tf",
+      "bytes": 2323
+    },
+    {
+      "object": "7b266df57a9b5a4414374ec13fd3638da19e3b0b",
+      "path": "terraform/ec2.tf",
+      "bytes": 1278
+    },
+    {
+      "object": "493c1137bed827894bc536a194e8d85d5e10cb97",
+      "path": "terraform/main.tf",
+      "bytes": 3727
+    },
+    {
+      "object": "a02b56e9c734baf367c2f26924f45ed6cc4a5421",
+      "path": "terraform/outputs.tf",
+      "bytes": 1308
+    },
+    {
+      "object": "bac36d35383b76d3fca83d49d67a71bdf843562f",
+      "path": "terraform/variables.tf",
+      "bytes": 994
+    },
+    {
+      "object": "0be48a191e014932b705ccc5e441a3dd6d3f77f2",
+      "path": "terraform/versions.tf",
+      "bytes": 149
+    },
+    {
+      "object": "d0e15660d5da5f1470a0897c8ac0d214230e5f54",
+      "path": "terraform/vpc_flow_logs.tf",
+      "bytes": 1566
+    },
+    {
+      "object": "7e8b60da13b83532e085039abae28028a6cc63d9",
+      "path": "terraform/outputs.tf",
+      "bytes": 1044
+    },
+    {
+      "object": "4f695463a3c92765e34d00edd067986a0b8b23b7",
+      "path": "terraform/.terraform.lock.hcl",
+      "bytes": 1481
+    },
+    {
+      "object": "635c7742a5a10e7aea6f73ab713467a1e212d96f",
+      "path": "terraform/outputs.tf",
+      "bytes": 782
+    },
+    {
+      "object": "b3dd99b66bd28db36b9dea98cc4b6cd65c1acc23",
+      "path": "terraform/outputs.tf",
+      "bytes": 634
+    },
+    {
+      "object": "30915653ee9bd29334c78a15df3ca67c8050407d",
+      "path": "terraform/variables.tf",
+      "bytes": 713
+    }
+  ],
+  "notes": [
+    "No credential values are printed by this audit.",
+    "Terraform state and provider caches are excluded from release packaging.",
+    "Screenshots contain AWS account/resource identifiers; these identifiers are not access credentials.",
+    "Raw OpenClaw history and business documents are outside the release allowlist."
+  ]
+}

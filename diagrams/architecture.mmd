@@ -1,0 +1,32 @@
+flowchart TB
+  Internet[Internet]
+  subgraph AWS["AWS us-east-1 | single availability zone lab"]
+    subgraph VPC["VPC 10.20.0.0/16"]
+      IGW[Internet gateway]
+      subgraph PUB["Public subnet 10.20.1.0/24"]
+        PRT["Public route table: default route to IGW"]
+        WEB["Web-tier security group only | no web server deployed"]
+      end
+      subgraph PRIV["Private subnet 10.20.10.0/24"]
+        RT["Private route table: no default route in Terraform"]
+        SG["Backend security group | TCP 443 and 5432 from web SG only"]
+        EC2["Private Ubuntu EC2 | no public IP | IMDSv2 required"]
+        EBS["Encrypted EBS | 8 GiB gp3"]
+      end
+      FLOW[VPC Flow Logs]
+    end
+    CW["CloudWatch Logs | 7-day retention"]
+    IAM[Flow Logs delivery role]
+    API[AWS API activity]
+    CT["CloudTrail | single-region trail"]
+    S3["S3 audit logs | public access blocked | AES256 encryption | versioning"]
+  end
+  Internet --- IGW
+  IGW --- PRT
+  WEB -. "permitted source relationship, not a deployed application path" .-> SG
+  SG --- EC2
+  EC2 --- EBS
+  FLOW --> CW
+  IAM -. authorizes delivery .-> CW
+  API --> CT
+  CT --> S3

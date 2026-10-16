@@ -1,85 +1,74 @@
 # SecurePT Cloud Security Lab
 
-## Project Overview
+A healthcare-focused AWS infrastructure security portfolio lab built with Terraform. It models public/private network segmentation, a protected backend demonstration server, encrypted storage, and infrastructure logging for a small physical therapy practice scenario.
 
-SecurePT Cloud Security Lab is a healthcare-focused AWS security portfolio project modeled around the needs of a small physical therapy practice.
+## Project status
 
-The goal is to build a HIPAA-aligned cloud security architecture that demonstrates practical skills in cloud networking, infrastructure as code, encryption, access control, monitoring, and incident response planning.
+Phases 1-6 are complete for the recovered portfolio MVP scope. Phase 7 (GitHub and job packaging) remains. Documentation was synchronized to the original WSL repository on October 15, 2026. The final documentation commit and GitHub publication remain pending. The backend is a demonstration EC2 instance; a clinical application, database service, and patient authentication are not installed by this Terraform.
 
-This project is not presented as a fully production-ready HIPAA implementation by itself. It is a technical portfolio lab and business blueprint showing the safeguards, documentation, and architecture needed for a secure healthcare environment.
+## Architecture
 
-## Why This Project Matters
+![SecurePT deployed architecture](diagrams/securept-architecture.png)
 
-Small healthcare practices often need secure systems for patient intake, documentation, billing, scheduling, backups, and administrative workflows. These environments require strong privacy and security controls because they may handle protected health information (PHI/ePHI).
+The VPC uses 10.20.0.0/16, containing public subnet 10.20.1.0/24 and private subnet 10.20.10.0/24 in one availability zone. The public route table has a default route to the internet gateway. The private route table has only the VPC local route. No NAT gateway, public web server, or load balancer is deployed.
 
-This project demonstrates how a secure foundation can be designed using AWS and Terraform.
+The backend has no public IP and requires IMDSv2. Its security group permits inbound TCP 443/5432 only from resources assigned the web-tier security group. Both security groups permit all outbound IPv4 traffic, subject to routing. Its root EBS volume is 8 GiB gp3 and encrypted; the console shows the aws/ebs key alias.
 
-## Skills Demonstrated
+The /16 is a generous parent address pool for subnet expansion; it is not the size of an office LAN or a requirement for the clinic. See [address-plan explanation](docs/addressing_rationale.md) for the math and tradeoffs.
 
-- AWS cloud networking
-- VPC design
-- public and private subnet segmentation
-- routing and internet gateway configuration
-- security groups / cloud firewall rules
-- Terraform Infrastructure as Code
-- encryption planning with AWS KMS
-- least privilege design
-- healthcare security thinking
-- HIPAA-aligned technical safeguards
-- documentation for employers and clients
+## Completed work and evidence
 
-## Planned Architecture
+| Phase | Delivered | Evidence |
+|---|---|---|
+| 1 | VPC, subnets, routing, gateway, security groups | [Network summary](docs/phase1_deployment_summary.md) |
+| 2 | Private Ubuntu EC2, encrypted root disk, IMDSv2 | [Backend summary](docs/phase2_private_backend_summary.md) |
+| 3 | CloudTrail to protected S3 audit storage | [Audit summary](docs/phase3_audit_logging_summary.md) |
+| 4 | VPC Flow Logs and CloudWatch destination | [Flow Logs summary](docs/phase4_vpc_flow_logs_summary.md) |
+| 5 | Architecture artwork and 14 actual console screenshots | [Evidence package](docs/phase5_evidence_summary.md) |
+| 6 | Referenced safeguards mapping and README polish | [Documentation summary](docs/phase6_documentation_summary.md) |
+| 7 | Publication review, GitHub and job packaging | Pending |
 
-The first version of this lab will include:
+The explicit seven-phase handoff was recovered from the original OpenClaw conversations. See [roadmap provenance](docs/recovered_roadmap.md). Earlier plans included broader future work; an application demo and automated response are extensions to this MVP.
 
-- One AWS VPC named `secure-pt-cloud`
-- One public subnet for DMZ-style public-facing systems
-- One private subnet for sensitive backend systems
-- Internet gateway for public subnet internet access
-- Route tables separating public and private traffic
-- Security groups enforcing least privilege
-- Later phase: private EC2 instance representing a patient database server
-- Later phase: encrypted storage using AWS KMS
-- Later phase: logging/monitoring with CloudWatch or Wazuh
+## Verification
 
-## Project Phases
+On October 14, 2026, the owner shared read-only CLI output showing a no-change Terraform plan, successful CloudTrail and Flow Logs delivery, private EC2 placement, required IMDSv2, encrypted storage, and intended backend security-group rules.
 
-### Phase 1 — Network Foundation
+On October 15, the assistant directly inspected the signed-in AWS Console and captured [14 screenshots](screenshots/README.md). The console confirmed private local-only routing, public IGW routing, the sole listed backend security group, instance and disk settings, CloudTrail Logging with a delivery timestamp, active Flow Logs, and one-week CloudWatch retention. A recent delivered Flow Logs record reported NODATA; no end-to-end connectivity or traffic-blocking test was performed. See [verification record](docs/verification_record.md).
 
-Build the AWS VPC, public subnet, private subnet, route tables, internet gateway, and initial security groups using Terraform.
+## Security purpose and boundaries
 
-### Phase 2 — Secure Private Server
+Private placement and limited inbound rules reduce exposure. Encrypted EBS demonstrates storage encryption. CloudTrail provides AWS API visibility; VPC Flow Logs provide eligible flow metadata, not packet contents or clinical-record audit events. Terraform configures the S3 log bucket with public-access blocking, AES256 server-side encryption, and versioning; those bucket settings were reviewed in code rather than separately screenshot-verified.
 
-Deploy a private EC2 instance representing a backend patient database system. Configure encrypted storage and strict security group access.
+The [HIPAA-aligned safeguards mapping](docs/hipaa_controls_mapping.md) links selected safeguards to evidence and gaps using HHS/eCFR sources. It is an educational control analysis, not a compliance certification or assessment of a real practice. Application identity/TLS, clinical access auditing, operating-system administration and patching, tested backups/restores, incident procedures, workforce/physical safeguards, and vendor arrangements are not established by this lab. CloudTrail is single-region, and log file validation is disabled. Seven-day Flow Logs retention is a lab choice, not a production retention policy.
 
-### Phase 3 — Monitoring and Logging
+## Repository guide
 
-Add centralized logging and monitoring. Initial MVP may use AWS-native logging. Later versions may integrate Wazuh SIEM.
+- terraform/: deployed infrastructure source and provider lock file.
+- [Architecture explanation](docs/architecture.md), [editable SVG](diagrams/securept-architecture.svg), and [Mermaid source](diagrams/architecture.mmd).
+- [Screenshot gallery](screenshots/README.md) and [image hashes](screenshots/manifest.json).
+- [Security controls and gaps](docs/security_controls.md).
+- [Address-plan learning note](docs/addressing_rationale.md).
+- [Current milestones](docs/milestones.md).
 
-### Phase 4 — Incident Response Automation
+## Inspecting the infrastructure
 
-Build a safe lab demo where suspicious activity triggers an automated response, such as blocking an IP address in a security group.
+Requirements: Terraform >= 1.5, AWS CLI with appropriate existing access, and the correct working directory/state for the deployed environment. The configured region is us-east-1. From the original WSL repository:
 
-### Phase 5 — HIPAA-Aligned Documentation
-
-Map the technical controls to HIPAA-aligned safeguards and create documentation useful for employers, clients, and future Savvy Security Solutions offerings.
-
-## Repository Structure
-
-```text
-secure-pt-cloud/
-├── README.md
-├── terraform/
-├── docs/
-├── diagrams/
-├── screenshots/
-└── scripts/
+```bash
+cd ~/portfolio/secure-pt-cloud/terraform
+terraform fmt -check
+terraform init
+terraform validate
+terraform plan
 ```
 
-## Status
+Review the plan before applying any change. Reuse the existing state: empty state can propose duplicate resources. The latest Ubuntu AMI is selected dynamically, so later plans can propose replacing the instance when the image changes. The current Windows copy is being used for documentation, not deployment.
 
-Current status: Project skeleton created. Terraform Phase 1 will be built next.
+## Publication and cost
 
-## Business Connection
+Before publishing, review tracked files and Git history as well as .gitignore. Exclude credentials, state, plans, private variables, and raw personal OpenClaw history. Review account/resource identifiers in console evidence. EC2, storage, and logging can incur charges; Free Tier eligibility is account-specific. Document any eventual cleanup and retain appropriate evidence/state.
 
-This project supports the future development of Savvy Security Solutions, a planned cybersecurity and managed security services business focused on practical security for small healthcare and local businesses.
+## Interview explanation
+
+"I built a healthcare-focused AWS infrastructure lab with Terraform. I separated public and private subnets, deployed a backend without a public IP, required IMDSv2, encrypted its storage, and configured CloudTrail and VPC Flow Logs. I verified deployed settings and mapped the evidence to selected healthcare safeguards. I documented the limits, including no application tier, tested backups, or automated response."

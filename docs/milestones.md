@@ -1,65 +1,44 @@
-# SecurePT Cloud — Milestones
+# SecurePT Cloud - Current milestones
 
-## Deadline Goal
-Complete a job-ready SecurePT Cloud MVP by next Friday.
+Updated October 15, 2026 after recovering the explicit October 13 seven-phase OpenClaw handoff. See [recovered roadmap](recovered_roadmap.md). Earlier planning documents used different numbering.
 
-## MVP Definition
-The MVP should be strong enough to show employers and future clients:
+## Completed deployment sequence
 
-- AWS network segmentation
-- Terraform Infrastructure as Code
-- cloud firewall/security group design
-- HIPAA-aligned security reasoning
-- screenshots proving deployment
-- clean README and documentation
+- [x] Phase 1: Network foundation.
+- [x] Phase 2: Private backend server.
+- [x] Phase 3: CloudTrail audit logging.
+- [x] Phase 4: VPC Flow Logs.
 
-## Phase 1 — Project Skeleton
+## Documentation work completed in Windows copy
 
-- [x] Create project folder
-- [x] Create README
-- [x] Create folders: terraform, docs, diagrams, screenshots, scripts
-- [x] Initialize Git
-- [ ] First commit
+- [x] Replace outdated README with implemented architecture and current status.
+- [x] Create editable Mermaid architecture diagram.
+- [x] Record owner-provided AWS verification results.
+- [x] Explain security controls and implementation gaps.
+- [x] Add an interview explanation.
 
-## Phase 2 — AWS Access
+## Remaining completion work
 
-- [ ] Configure AWS CLI credentials
-- [ ] Confirm identity with `aws sts get-caller-identity`
-- [ ] Set default AWS region
+- [ ] Final owner review of the diagram and README before publishing.
+- [x] Capture AWS screenshots and a representative delivered Flow Logs record.
+- [ ] Review embedded resource/account identifiers for public release; capture a representative CloudTrail event if needed for the final walkthrough.
+- [x] Verify live private routes and all security groups attached to the instance.
+- [x] Create a referenced HIPAA safeguards mapping that identifies missing controls.
+- [ ] Write an incident investigation walkthrough using existing logs.
+- [ ] Add a Savvy Security Solutions project connection page.
+- [x] Scan tracked files and Git history for selected credential patterns; release excludes state and private history.
+- [ ] Sync reviewed documentation back to the original WSL repository and commit there.
+- [ ] Prepare GitHub release and a clean backup; confirm destination before publishing.
+- [x] Prepare LinkedIn portfolio text and resume bullets.
 
-## Phase 3 — Terraform Network Foundation
+## Workspace continuity
 
-- [ ] Create Terraform versions file
-- [ ] Create provider configuration
-- [ ] Create VPC
-- [ ] Create public subnet
-- [ ] Create private subnet
-- [ ] Create internet gateway
-- [ ] Create public route table
-- [ ] Create security groups
-- [ ] Run `terraform fmt`
-- [ ] Run `terraform init`
-- [ ] Run `terraform validate`
-- [ ] Run `terraform plan`
-- [ ] Apply after review
+The original working repository is /home/savib/portfolio/secure-pt-cloud in WSL. This documentation update was written to the copied Windows repository at C:/Users/savib/Documents/Codex/secure-pt-cloud. The owner confirmed WSL synchronization on October 15, 2026; the final documentation commit remains pending. No Terraform source, state, or deployed resources were changed in this update.
 
-## Phase 4 — Secure Backend Layer
+## Recovered remaining phases
 
-- [ ] Add private EC2 instance placeholder
-- [ ] Add encrypted EBS volume
-- [ ] Add KMS encryption
-- [ ] Restrict access with security groups
+- [x] Phase 5: Screenshots and architecture diagram. Completed October 15, 2026; see [evidence summary](phase5_evidence_summary.md).
+- [x] Phase 6: HIPAA-aligned control mapping and README polish. Completed October 15, 2026; see [summary](phase6_documentation_summary.md).
+- Phase 7: Local release/job packaging prepared and WSL sync reported successful; commit and GitHub publication pending. See [status](phase7_status.md).
 
-## Phase 5 — Documentation Package
-
-- [ ] Architecture diagram
-- [ ] Screenshots
-- [ ] HIPAA-aligned controls mapping
-- [ ] Interview talking points
-- [ ] Savvy Security Solutions connection page
-
-## Phase 6 — Backup and Publish
-
-- [ ] Push to GitHub
-- [ ] Create milestone zip backup
-- [ ] Copy backup to Google Drive / OneDrive
+A working application demo, Wazuh, and response automation are extensions to this recovered MVP scope, not replacements for its remaining three phases.
