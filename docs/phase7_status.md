@@ -1,6 +1,6 @@
 # Phase 7 status
 
-Updated October 15, 2026.
+Updated October 16, 2026.
 
 ## Completed locally
 
@@ -13,10 +13,10 @@ Updated October 15, 2026.
 
 ## Awaiting completion
 
-- [ ] Sign in to GitHub and choose repository owner/name/visibility.
+- [x] Sign in to GitHub and create the public repository: https://github.com/tristangardnr-cell/secure-pt-cloud.
 - [x] Owner ran WSL documentation synchronization and confirmed Git status; original Terraform state stays in place.
-- [ ] Review and commit the updated project in the original WSL repository.
+- [x] Review and commit the updated project in the Windows Git copy, preserving the original deployment commits. The original WSL checkout is still the deployment working copy and has not received these new commits.
 - [ ] Publish and verify the repository, images, documentation, and excluded files.
 - [ ] Add the verified repository URL to job materials.
 
-Phase 7 is not marked complete until synchronization and publishing are actually verified. No repository was created, no push was performed, and no LinkedIn post was sent during local preparation.
+Phase 7 is not marked complete until publishing is actually verified. The public repository exists, but the first push is pending. Browser sign-in succeeded; Git Credential Manager in the assistant sandbox cannot use Windows security services for HTTPS authentication. Run the push from the owner's normal PowerShell session, then verify the remote contents. No LinkedIn post has been sent.

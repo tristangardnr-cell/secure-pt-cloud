@@ -1,6 +1,6 @@
 # SecurePT - job presentation materials
 
-Drafts prepared October 15, 2026. These describe a portfolio lab, not employment or production clinical operations. Replace the repository-link placeholder after publishing. No post or application has been submitted.
+Drafts prepared October 15, 2026; repository link added October 16. These describe a portfolio lab, not employment or production clinical operations. The public repository has been created; file publication is still pending. No post or application has been submitted.
 
 ## Resume project entry
 
@@ -15,7 +15,7 @@ Drafts prepared October 15, 2026. These describe a portfolio lab, not employment
 
 SecurePT Cloud is my healthcare-focused AWS security infrastructure lab, modeled around a small physical therapy practice. I used Terraform to build public/private subnet segmentation, restricted backend access, encrypted storage, and infrastructure logging. The repository includes an architecture diagram, 14 console screenshots, verification notes, and a referenced safeguards mapping that identifies what the lab demonstrates and what still needs work.
 
-Repository: [add published repository link]
+Repository: https://github.com/tristangardnr-cell/secure-pt-cloud
 
 ## LinkedIn completion post draft
 
@@ -27,7 +27,7 @@ One useful lesson: a security-group rule allowing TCP 443 does not by itself pro
 
 I am continuing to practice troubleshooting, Linux, PowerShell, and explaining the architecture.
 
-Repository: [add published repository link]
+Repository: https://github.com/tristangardnr-cell/secure-pt-cloud
 
 ## 60-second walkthrough
 

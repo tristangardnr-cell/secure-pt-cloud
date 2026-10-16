@@ -4,7 +4,7 @@ A healthcare-focused AWS infrastructure security portfolio lab built with Terraf
 
 ## Project status
 
-Phases 1-6 are complete for the recovered portfolio MVP scope. Phase 7 (GitHub and job packaging) remains. Documentation was synchronized to the original WSL repository on October 15, 2026. The final documentation commit and GitHub publication remain pending. The backend is a demonstration EC2 instance; a clinical application, database service, and patient authentication are not installed by this Terraform.
+Phases 1-6 are complete for the recovered portfolio MVP scope. Documentation was synchronized to the original WSL repository on October 15, 2026. On October 16, the documentation was committed in the Windows Git copy with the original deployment history preserved, and the public GitHub repository was created. Phase 7 publication remains pending the first successful push and remote verification. The original WSL checkout remains the deployment working copy. The backend is a demonstration EC2 instance; a clinical application, database service, and patient authentication are not installed by this Terraform.
 
 ## Architecture
 
