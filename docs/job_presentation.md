@@ -1,6 +1,6 @@
 # SecurePT - job presentation materials
 
-Drafts prepared October 15, 2026; repository link added October 16. These describe a portfolio lab, not employment or production clinical operations. The public repository has been created; file publication is still pending. No post or application has been submitted.
+Drafts prepared October 15, 2026; repository link added October 16. These describe a portfolio lab, not employment or production clinical operations. The public repository and published files were verified on October 16, 2026. No post or application has been submitted.
 
 ## Resume project entry
 

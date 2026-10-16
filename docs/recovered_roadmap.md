@@ -14,7 +14,7 @@ On October 13, 2026 at 5:30 PM Arizona time, the owner asked whether there were 
 | 4 | VPC Flow Logs | Deployment summary and Git commit recovered |
 | 5 | Screenshots and architecture diagram | Diagram and 14 screenshots completed in Windows copy on October 15 |
 | 6 | HIPAA-aligned control mapping and README polish | README polished; referenced mapping completed October 15 |
-| 7 | GitHub publish and LinkedIn/job packaging | Pending publication review and packaging |
+| 7 | GitHub publish and LinkedIn/job packaging | Public repository verified October 16, 2026; job materials prepared |
 
 ## Exact recovered handoff
 
@@ -54,4 +54,4 @@ The follow-up MVP explanation described deployed AWS infrastructure, working Ter
 
 ## Continuity
 
-The original WSL repository remains the infrastructure working copy. Documentation changes in the Windows copy still require synchronization and review before committing or publishing. No AWS changes were made during this recovery.
+The original WSL repository remains the infrastructure working copy. The initial documentation sync to WSL was confirmed by the owner on October 15. Publication used the Windows Git copy, preserving the original deployment commits. The later publication commits have not been synchronized to WSL; reconcile the WSL checkout before future Git work. No AWS changes were made during this recovery.

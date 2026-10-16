@@ -1,36 +1,25 @@
-# Phase 7 - publication and backup runbook
+# Phase 7 - publication and backup record
 
-Prepared October 15, 2026. Local release preparation is complete; remote publishing and WSL synchronization must be verified before marking Phase 7 complete.
+Completed and verified October 16, 2026.
 
-## Prepared locally
+Public repository: https://github.com/tristangardnr-cell/secure-pt-cloud
 
-- Publication audit: 22 historical Git blobs and 29 current text files scanned for selected credential patterns, with no findings at scan time. This records the screening performed; it is not a claim that every possible secret format was detected.
-- Clean release allowlist: README, .gitignore, Terraform source/provider lock file, documentation, diagrams, screenshots, and reviewed scripts.
-- State, .terraform caches, private variables, keys, .git internals, and private OpenClaw/business archives are excluded from the clean release.
-- [Resume and LinkedIn drafts](job_presentation.md).
-- [Publication audit](publication_audit.json).
+See [publication verification](phase7_status.md) for checks, original publication commit, and working-copy continuity.
 
-## Before publishing
+## Published scope
 
-1. Sign in to GitHub in the connected browser; select the owner and confirm repository name/visibility. Suggested name: secure-pt-cloud.
-2. For an existing repository, inspect its contents before any upload/push; do not replace remote history.
-3. Synchronize reviewed documentation to WSL using the supplied script. It backs up the prior documentation first and does not copy Terraform source or state.
-4. Inspect git status and diff in the original WSL repository.
-5. Commit selected project files, preserving existing deployment commits.
-6. Add the verified remote and push without force.
-7. Verify the published README, diagram, screenshot links, and file tree. Ensure no state/private archive was uploaded.
-8. Add the actual URL to the job drafts. Posting to LinkedIn remains a separate action.
+The release includes Terraform source and its provider lock file, README, documentation, editable diagrams, 14 AWS Console screenshots, and the reviewed documentation-sync script. Original deployment history is preserved. State, provider caches, private variables, credentials, keys, and personal OpenClaw/business archives are excluded.
 
-## WSL documentation sync
+The prepublication audit checked selected credential patterns in Git history and current project text with no findings. Pattern screening is not a guarantee of detecting every possible secret format. Account/resource identifiers remain visible in some console evidence; the owner authorized public publication after review.
 
-Run the supplied script from Ubuntu using its Windows-mounted path. The script validates the target repository, backs up existing documentation, copies README/docs/diagrams/screenshots/scripts, and displays Git status. It does not commit, push, apply Terraform, or delete files.
+## Verified result
 
-```bash
-bash /mnt/c/Users/savib/Documents/Codex/secure-pt-cloud/scripts/sync-docs-to-wsl.sh
-```
+The remote Git head matched the reviewed local publication head. The public README renders, the architecture image and all 14 gallery screenshots load, local Markdown links resolve, and screenshot hashes match the recorded inventory. Job presentation drafts include the public repository URL.
 
-The assistant could not directly access WSL during release preparation. A successful script result must be checked before claiming synchronization.
+## Backup and future maintenance
 
-## Backup scope
+The clean release ZIP is a source/documentation snapshot, not a disaster-recovery backup of deployed Terraform state. Preserve the original WSL state and private OpenClaw backup separately.
 
-The clean release ZIP is a portable source-and-documentation snapshot, not a full disaster-recovery backup of deployed Terraform state. Keep the original WSL state safely; the private OpenClaw backup is separate. The Windows .git copy still preserves the existing commit history locally.
+The original WSL checkout received the initial documentation sync; later publication commits are in the Windows Git copy and GitHub. Reconcile the WSL checkout before future Git work, preserving uncommitted work and ignored state. The documentation-sync script creates a backup but does not synchronize Git commit history. No AWS apply or destroy was performed for publication.
+
+LinkedIn profile edits and posting remain separate from this completed portfolio publication.
